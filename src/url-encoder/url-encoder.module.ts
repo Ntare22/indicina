@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { UrlEncoderService } from './url-encoder.service';
 import { UrlEncoderController } from './url-encoder.controller';
+import { UrlEncoderService } from './url-encoder.service';
 
 @Module({
+  controllers: [UrlEncoderController],
   providers: [UrlEncoderService],
-  controllers: [UrlEncoderController]
 })
 export class UrlEncoderModule {}
