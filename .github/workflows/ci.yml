@@ -10,24 +10,6 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:13
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: indicina
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
-    env:
-      DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/indicina"
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -45,12 +27,6 @@ jobs:
 
       - name: Install dependencies
         run: yarn ci
-
-      - name: Generate Prisma Client
-        run: npx prisma generate
-
-      - name: Run Prisma Migrations
-        run: npx prisma migrate deploy
 
       - name: Run lint
         run: yarn lint
