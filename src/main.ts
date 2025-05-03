@@ -10,7 +10,7 @@ async function bootstrap() {
 
   // Swagger configuration
   const config = new DocumentBuilder()
-    .setTitle('URL Shortener API')
+    .setTitle('Indicina URL Shortener API')
     .setDescription('API for shortening and managing URLs')
     .setVersion('1.0')
     .build();

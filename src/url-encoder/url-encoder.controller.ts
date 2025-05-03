@@ -131,7 +131,11 @@ export class UrlEncoderController {
     description: 'URL not found',
   })
   async getUrlStatistics(@Param('slug') slug: string) {
-    return this.urlEncoderService.getUrlStatistics(slug);
+    const stats = await this.urlEncoderService.getUrlStatistics(slug);
+    if (!stats) {
+      throw new HttpException('URL not found', HttpStatus.NOT_FOUND);
+    }
+    return stats;
   }
 
   @Get('api/list')
