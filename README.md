@@ -2,7 +2,7 @@
 
 ## Description
 
-This project was built with the help of the Nest Framework. [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This project was built with the help of the [Nest Framework](https://github.com/nestjs/nest).
 
 ## Installation
 
