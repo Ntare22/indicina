@@ -1,7 +1,21 @@
-import { Controller, Post, Get, Body, Param, HttpException, HttpStatus, Redirect } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  Param,
+  HttpException,
+  HttpStatus,
+  Redirect,
+} from '@nestjs/common';
 import { UrlEncoderService } from './url-encoder.service';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
-import { DecodeResponseDto, EncodeUrlDto, UrlResponseDto, UrlStatisticsDto } from './dto/url-encoder.dto';
+import {
+  DecodeResponseDto,
+  EncodeUrlDto,
+  UrlResponseDto,
+  UrlStatisticsDto,
+} from './dto/url-encoder.dto';
 
 @ApiTags('URL Encoder')
 @Controller()
@@ -83,7 +97,10 @@ export class UrlEncoderController {
     try {
       const originalUrl = await this.urlEncoderService.decodeUrl(slug);
       if (!originalUrl) {
-        throw new HttpException('URL not found or expired', HttpStatus.NOT_FOUND);
+        throw new HttpException(
+          'URL not found or expired',
+          HttpStatus.NOT_FOUND,
+        );
       }
       return { originalUrl };
     } catch (error) {

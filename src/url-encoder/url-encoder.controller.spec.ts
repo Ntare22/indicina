@@ -4,7 +4,6 @@ import { UrlEncoderService } from './url-encoder.service';
 
 describe('UrlEncoderController', () => {
   let controller: UrlEncoderController;
-  let service: UrlEncoderService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -13,7 +12,6 @@ describe('UrlEncoderController', () => {
     }).compile();
 
     controller = module.get<UrlEncoderController>(UrlEncoderController);
-    service = module.get<UrlEncoderService>(UrlEncoderService);
   });
 
   it('should be defined', () => {

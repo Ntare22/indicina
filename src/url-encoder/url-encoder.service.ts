@@ -16,12 +16,14 @@ export class UrlEncoderService {
   private slugToIdMap: Map<string, string> = new Map();
 
   async encodeUrl(originalUrl: string): Promise<string> {
-    for (const [_, link] of this.urlMap) {
+    // Check if URL already exists
+    for (const link of this.urlMap.values()) {
       if (link.originalUrl === originalUrl) {
         return link.slug;
       }
     }
 
+    // Generate new slug
     const slug = this.generateSlug();
     const id = nanoid();
 
@@ -72,13 +74,18 @@ export class UrlEncoderService {
     }
 
     const now = new Date();
-    const ageInDays = Math.floor((now.getTime() - link.createdAt.getTime()) / (1000 * 60 * 60 * 24));
-    const clicksPerDay = ageInDays > 0 
-      ? (link.clicks / ageInDays).toFixed(2)
-      : link.clicks.toString();
+    const ageInDays = Math.floor(
+      (now.getTime() - link.createdAt.getTime()) / (1000 * 60 * 60 * 24),
+    );
+    const clicksPerDay =
+      ageInDays > 0
+        ? (link.clicks / ageInDays).toFixed(2)
+        : link.clicks.toString();
     const isExpired = link.expiresAt ? link.expiresAt < now : false;
-    const daysUntilExpiry = link.expiresAt 
-      ? Math.ceil((link.expiresAt.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
+    const daysUntilExpiry = link.expiresAt
+      ? Math.ceil(
+          (link.expiresAt.getTime() - now.getTime()) / (1000 * 60 * 60 * 24),
+        )
       : null;
 
     return {
@@ -96,22 +103,28 @@ export class UrlEncoderService {
       performance: {
         averageClicksPerDay: clicksPerDay,
         lastAccessed: link.createdAt,
-      }
+      },
     };
   }
 
   async getAllUrls() {
     return Array.from(this.urlMap.values())
       .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
-      .map(link => {
+      .map((link) => {
         const now = new Date();
-        const ageInDays = Math.floor((now.getTime() - link.createdAt.getTime()) / (1000 * 60 * 60 * 24));
-        const clicksPerDay = ageInDays > 0 
-          ? (link.clicks / ageInDays).toFixed(2)
-          : link.clicks.toString();
+        const ageInDays = Math.floor(
+          (now.getTime() - link.createdAt.getTime()) / (1000 * 60 * 60 * 24),
+        );
+        const clicksPerDay =
+          ageInDays > 0
+            ? (link.clicks / ageInDays).toFixed(2)
+            : link.clicks.toString();
         const isExpired = link.expiresAt ? link.expiresAt < now : false;
-        const daysUntilExpiry = link.expiresAt 
-          ? Math.ceil((link.expiresAt.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
+        const daysUntilExpiry = link.expiresAt
+          ? Math.ceil(
+              (link.expiresAt.getTime() - now.getTime()) /
+                (1000 * 60 * 60 * 24),
+            )
           : null;
 
         return {
@@ -129,7 +142,7 @@ export class UrlEncoderService {
           performance: {
             averageClicksPerDay: clicksPerDay,
             lastAccessed: link.createdAt,
-          }
+          },
         };
       });
   }
