@@ -6,6 +6,8 @@ This project was built with the help of the [Nest Framework](https://github.com/
 
 ## Installation
 
+Start by clone this repo
+
 ```bash
 $ yarn install
 ```
